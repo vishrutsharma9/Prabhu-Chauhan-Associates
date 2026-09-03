@@ -179,4 +179,16 @@
   .site-header__nav--mobile li:last-child {
     margin-top: 16px;
   }
+
+  /* The "Call Now" button is an <a>, so the generic nav-link rule above
+     (display: block, 4px horizontal padding, a bottom border) was
+     overriding .btn's own centered-flex layout and 26px padding —
+     leaving its text cramped against the left edge. Restore .btn's
+     actual button look here. */
+  .site-header__nav--mobile .btn {
+    display: inline-flex;
+    justify-content: center;
+    padding: 13px 26px;
+    border-bottom: none;
+  }
 }
