@@ -1,0 +1,49 @@
+.knowledge-card {
+  padding: 26px 26px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.knowledge-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.knowledge-card__meta time {
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+}
+
+.knowledge-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.knowledge-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+.knowledge-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--color-navy-700);
+}
+
+.knowledge-card__link svg {
+  width: 15px;
+  height: 15px;
+  transition: transform var(--transition-base);
+}
+
+.knowledge-card__link:hover svg {
+  transform: translateX(3px);
+}

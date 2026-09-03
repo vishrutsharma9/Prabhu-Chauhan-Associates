@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script type="text/javascript">
+      // ====================================================================
+      // GitHub Pages SPA redirect (matches the decode script in index.html).
+      // GitHub Pages has no server-side routing, so it serves this 404.html
+      // for any URL that isn't a real file (e.g. a direct visit to
+      // /services or a page refresh). This script rewrites that URL into a
+      // query string and redirects to the site root, where index.html loads
+      // the React app and the decode script in index.html restores the
+      // original path — giving clean URLs without a server.
+      // Pattern: https://github.com/rafgraph/spa-github-pages
+      //
+      // pathSegmentsToKeep:
+      //   - 0 if the site is served from a custom domain at the root
+      //     (e.g. https://yourfirm.com/...) — the default here, since this
+      //     project is meant to be connected to a custom domain.
+      //   - 1 if instead served from https://<username>.github.io/<repo>/
+      //     without a custom domain.
+      // ====================================================================
+      var pathSegmentsToKeep = 0;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          l.pathname
+            .split('/')
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join('/') +
+          '/?/' +
+          l.pathname
+            .slice(1)
+            .split('/')
+            .slice(pathSegmentsToKeep)
+            .join('/')
+            .replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

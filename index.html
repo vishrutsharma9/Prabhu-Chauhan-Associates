@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ================================================================
+         PAGE <title> AND META DESCRIPTION BELOW ARE THE DEFAULTS FOR THE
+         HOME PAGE. They are overwritten per-route at runtime by
+         src/hooks/useDocumentHead.ts (see each page's useDocumentHead call).
+         Keep these defaults in sync with src/data/siteConfig.ts by hand,
+         since this file can't import that TypeScript config directly.
+         ================================================================= -->
+    <title>Prabhu Chauhan &amp; Associates | Chartered Accountants</title>
+    <meta
+      name="description"
+      content="Prabhu Chauhan &amp; Associates is a Chartered Accountancy firm offering audit, taxation, GST, accounting, and business advisory services."
+    />
+    <!-- TODO: replace with the real domain once connected (see README.md → "Connecting your domain") -->
+    <link rel="canonical" href="https://[YOUR-DOMAIN]/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Prabhu Chauhan &amp; Associates" />
+    <meta property="og:title" content="Prabhu Chauhan &amp; Associates | Chartered Accountants" />
+    <meta
+      property="og:description"
+      content="Prabhu Chauhan &amp; Associates is a Chartered Accountancy firm offering audit, taxation, GST, accounting, and business advisory services."
+    />
+    <!-- TODO: add an og:image once a firm logo / cover image is available -->
+    <meta name="theme-color" content="#0c1f30" />
+
+    <!-- Favicon. Replace public/images/ca-india-logo.png with the firm's own
+         logo once available (see README.md → "Updating the favicon and logo"). -->
+    <link rel="icon" type="image/png" href="/images/ca-india-logo.png" />
+
+    <!-- Google Fonts: Source Serif 4 (headings) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Basic structured data for a professional accounting services firm.
+         Update every field to match src/data/siteConfig.ts once real
+         details are available — see README.md → "Structured data". -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AccountingService",
+        "name": "Prabhu Chauhan & Associates",
+        "description": "Prabhu Chauhan & Associates is a Chartered Accountancy firm offering audit, taxation, GST, accounting, and business advisory services.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "B-23 Gayatri Vihar, Bajarang Nagar",
+          "addressLocality": "Kota",
+          "addressRegion": "Rajasthan",
+          "postalCode": "324001",
+          "addressCountry": "IN"
+        },
+        "telephone": "+91 94140 78104",
+        "email": "cagauravtripathi2000@gmail.com",
+        "priceRange": "$$"
+      }
+    </script>
+
+    <!-- ================================================================
+         GitHub Pages SPA redirect handler (see public/404.html for the
+         matching redirect logic). This lets deep links like /services
+         work correctly when someone opens or refreshes that URL directly
+         on GitHub Pages, which otherwise only knows how to serve
+         index.html for the root path. Do not remove unless you switch to
+         a hosting platform with native SPA rewrite support.
+         Pattern: https://github.com/rafgraph/spa-github-pages
+         ================================================================= -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

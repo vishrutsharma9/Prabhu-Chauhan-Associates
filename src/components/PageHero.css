@@ -1,0 +1,18 @@
+.page-hero {
+  background: var(--color-navy-900);
+  color: var(--color-text-on-dark);
+  padding: 72px 0 64px;
+}
+
+.page-hero__eyebrow {
+  color: var(--color-accent-500);
+}
+
+.page-hero h1 {
+  color: var(--color-text-on-dark);
+  margin-bottom: 14px;
+}
+
+.page-hero .section-lead {
+  color: var(--color-text-on-dark-muted);
+}

@@ -1,0 +1,12 @@
+.not-found {
+  text-align: center;
+  padding: 120px 0;
+}
+
+.not-found h1 {
+  margin: 8px 0 16px;
+}
+
+.not-found .section-lead {
+  margin: 0 auto 32px;
+}

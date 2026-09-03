@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: update this to the real domain once connected, e.g. https://yourfirm.com/sitemap.xml
+# Sitemap: https://[YOUR-DOMAIN]/sitemap.xml

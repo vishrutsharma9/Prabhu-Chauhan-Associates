@@ -1,0 +1,192 @@
+.contact-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 560px) {
+  .contact-form {
+    padding: 24px;
+  }
+
+  .contact-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-form-embed {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  /* Crimson accent bar across the top — the one branded touch we can add,
+     since the Google Form itself (a cross-origin iframe) can't be restyled
+     from here. */
+  border-top: 3px solid var(--color-accent-500);
+}
+
+.contact-form-embed__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.contact-form-embed__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-100);
+  color: var(--color-accent-600);
+  flex-shrink: 0;
+}
+
+.contact-form-embed__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.contact-form-embed__header h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.contact-form-embed__header p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Google Forms always renders its own title/description/"Sign in to Google"
+   header inside the iframe, with no official way to turn it off. Since we
+   already show our own branded header above the embed, we crop Google's out
+   instead: shift the iframe up so that header sits above the visible area,
+   then clip the overflow — leaving only the actual fields visible. The
+   fields themselves are untouched, this only hides the chrome above them.
+
+   This is a pixel-estimate hack tied to the CURRENT live form (5 fields:
+   Full Name, Email Address, Phone Number, Service Requirement, Query) —
+   editing the Google Form's fields or its title/description text changes
+   these numbers and requires re-measuring.
+
+   Measured directly against the live form (anonymous, logged-out view) at
+   many widths: the content height from the top of the "Full Name" box to
+   the bottom of the Submit button is a constant ~791px at every width
+   tested. What varies is only the CROP OFFSET — how tall Google's own
+   header renders — and it moves in four distinct steps as its title/
+   description text wraps to fewer lines at wider iframe widths, not
+   gradually (each step is its own tier below, not shared with a
+   neighbour, so the frame height only needs a small fixed safety margin
+   rather than absorbing a whole plateau's worth of slack):
+     - iframe width  < 400px    : crop offset ~266px (mobile stacked layout)
+     - iframe width  400-419px  : crop offset ~223px
+     - iframe width  420-479px  : crop offset ~203px
+     - iframe width >= 480px    : crop offset ~183px (stays constant from
+                                   ~480px all the way past 1000px+ — Google's
+                                   own form column has a max width and stops
+                                   growing)
+   The breakpoints below are in WINDOW width (not iframe width) and were
+   measured against how wide .contact-form-embed__frame actually renders
+   at each window width on this page (see Contact.css's .contact-layout
+   breakpoint for why the mapping isn't 1:1 above 900px). If the crop or
+   Submit button ever looks off again, re-measure by opening the Google
+   Form's own viewform URL directly (not through this iframe) at the exact
+   width .contact-form-embed__frame renders at, and read
+   [role="listitem"] / [role="button"] (Submit) boundingClientRect()s. */
+.contact-form-embed__frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  /* A little breathing room above "Full Name" — the crop below lands the
+     iframe exactly at that field's own border with zero gap, so this
+     padding (not more crop) is what creates the requested white space.
+     Frame height = content (measured ~791px, +7px safety margin so the
+     Submit button never sits right at the clipped edge) + this padding,
+     same at every width. */
+  padding-top: 18px;
+  height: 816px;
+}
+
+.contact-form-embed iframe {
+  border: none;
+  display: block;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  height: 981px; /* frame content (798px) + header crop (183px) */
+  margin-top: -183px;
+}
+
+/* Window 471-528px → iframe ~420-479px wide. */
+@media (max-width: 528px) {
+  .contact-form-embed iframe {
+    height: 1001px; /* frame content (798px) + header crop (203px) */
+    margin-top: -203px;
+  }
+}
+
+/* Window 449-470px → iframe ~400-419px wide. */
+@media (max-width: 470px) {
+  .contact-form-embed iframe {
+    height: 1021px; /* frame content (798px) + header crop (223px) */
+    margin-top: -223px;
+  }
+}
+
+/* Window <=448px → iframe under 400px wide (mobile stacked layout). */
+@media (max-width: 448px) {
+  .contact-form-embed iframe {
+    height: 1064px; /* frame content (798px) + header crop (266px) */
+    margin-top: -266px;
+  }
+}
+
+.contact-form-embed iframe.is-loaded {
+  opacity: 1;
+}
+
+.contact-form-embed__skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.contact-form-embed__spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent-500);
+  animation: contact-form-spin 800ms linear infinite;
+}
+
+@keyframes contact-form-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .contact-form-embed__header {
+    padding: 22px 20px 18px;
+  }
+}

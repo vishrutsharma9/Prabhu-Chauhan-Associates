@@ -1,0 +1,62 @@
+name: Refresh Live GST Circulars
+
+# Runs on a schedule, re-fetches the "What's New" circulars list from the
+# official CBIC GST portal (see scripts/fetch-live-news.mjs for the source
+# and why it's used), and commits the result to src/data/liveNews.json if it
+# changed. That commit pushes to main, which triggers deploy.yml to publish
+# the refreshed site — so the live site stays static, but data updates on a
+# schedule without anyone needing to run anything manually.
+#
+# Trigger a run early to seed real data: Actions tab → "Refresh Live GST
+# Circulars" → Run workflow.
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # daily, ~8:30am IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write # needed to trigger the deploy workflow below
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch latest circulars
+        run: node scripts/fetch-live-news.mjs
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/liveNews.json
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: refresh live GST circulars"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A push made with the default GITHUB_TOKEN does NOT trigger other
+      # workflows (GitHub's anti-recursion safeguard) — so deploy.yml's
+      # `on: push` wouldn't fire on its own here. Trigger it directly instead.
+      - name: Trigger deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml

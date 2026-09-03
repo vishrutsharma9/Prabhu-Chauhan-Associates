@@ -1,0 +1,80 @@
+/* --- About + expertise ------------------------------------------------- */
+.about {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.about__copy p {
+  margin-top: 16px;
+}
+
+.about__expertise {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+
+.about__expertise h3 {
+  margin-bottom: 18px;
+}
+
+.expertise-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.expertise-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.expertise-list svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-accent-600);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Services preview ---------------------------------------------------- */
+.home-services__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* --- Why choose us -------------------------------------------------------- */
+.strength-card {
+  padding: 8px 4px;
+}
+
+.strength-card svg {
+  width: 30px;
+  height: 30px;
+  color: var(--color-accent-500);
+  margin-bottom: 16px;
+}
+
+.strength-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.strength-card p {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}

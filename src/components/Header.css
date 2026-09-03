@@ -1,0 +1,182 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249, 248, 245, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 84px;
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-right: auto;
+  min-width: 0;
+}
+
+.site-header__logo {
+  height: 52px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.site-header__brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.site-header__brand-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--color-navy-900);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.site-header__brand-divider {
+  width: 100%;
+  height: 1px;
+  margin: 4px 0;
+  background: var(--color-accent-500);
+}
+
+.site-header__brand-tag {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.site-header__nav--desktop ul {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 26px);
+}
+
+.site-header__nav--desktop a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  padding: 8px 0;
+  position: relative;
+  white-space: nowrap;
+}
+
+.site-header__nav--desktop a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--color-accent-500);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.site-header__nav--desktop a:hover::after,
+.site-header__nav--desktop a.is-active::after {
+  transform: scaleX(1);
+}
+
+.site-header__nav--desktop a.is-active {
+  color: var(--color-navy-900);
+}
+
+.site-header__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  color: var(--color-navy-900);
+}
+
+.site-header__menu-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.site-header__nav--mobile {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .site-header__nav--desktop,
+  .site-header__cta {
+    display: none;
+  }
+
+  .site-header__menu-btn {
+    display: flex;
+  }
+
+  .site-header__nav--mobile {
+    display: block;
+    position: fixed;
+    /* This only positions correctly because the element is a SIBLING of
+       <header> in the DOM (see the comment in Header.tsx) — <header> has
+       backdrop-filter, which would otherwise become this fixed element's
+       containing block instead of the viewport. */
+    inset: 84px 0 0 0;
+    /* Explicit and above .site-header's 100 — without this, being a DOM
+       sibling (not a child) of <header> means later-in-DOM positioned page
+       content like .hero can stack above this panel instead of below it. */
+    z-index: 200;
+    background: var(--color-surface);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 260ms ease;
+  }
+
+  .site-header__nav--mobile.is-open {
+    transform: translateX(0);
+  }
+
+  .site-header__nav--mobile ul {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 4px;
+  }
+
+  .site-header__nav--mobile a {
+    display: block;
+    padding: 16px 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__nav--mobile a.is-active {
+    color: var(--color-accent-600);
+  }
+
+  .site-header__nav--mobile li:last-child {
+    margin-top: 16px;
+  }
+}
