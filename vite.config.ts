@@ -4,10 +4,9 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // `base: '/'` is correct when this site is served from a custom domain
-  // at the root (e.g. https://yourfirm.com/), which is how this project is
-  // meant to be deployed. If you instead publish to GitHub Pages WITHOUT a
-  // custom domain (i.e. at https://<username>.github.io/<repo-name>/),
-  // change this to '/<repo-name>/' — see README.md → "Deploying to GitHub Pages".
-  base: '/',
+  // Serving from https://vishrutsharma9.github.io/Prabhu-Chauhan-Associates/
+  // (a GitHub Pages project site, no custom domain yet), so assets need this
+  // subpath — otherwise they 404. If a custom domain is added later (e.g.
+  // https://yourfirm.com/), change this back to '/'.
+  base: '/Prabhu-Chauhan-Associates/',
 })
