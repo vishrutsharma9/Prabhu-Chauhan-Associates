@@ -21,7 +21,9 @@
       //   - 1 if instead served from https://<username>.github.io/<repo>/
       //     without a custom domain.
       // ====================================================================
-      var pathSegmentsToKeep = 0;
+      // TEMPORARY: 1 while falling back to the GitHub Pages subpath (see
+      // vite.config.ts). Switch back to 0 once prabhuca.in is confirmed live.
+      var pathSegmentsToKeep = 1;
       var l = window.location;
       l.replace(
         l.protocol +
