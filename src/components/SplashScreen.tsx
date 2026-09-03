@@ -62,7 +62,7 @@ export function SplashScreen() {
 
   return (
     <div className={`splash-screen ${leaving ? 'is-leaving' : ''}`} role="presentation" aria-hidden="true">
-      <img src="/images/ca-india-logo.png" alt="" className="splash-screen__logo" />
+      <img src={`${import.meta.env.BASE_URL}images/ca-india-logo.png`} alt="" className="splash-screen__logo" />
       <div className="splash-screen__text">
         <span className="splash-screen__name">{siteConfig.firmName}</span>
         <span className="splash-screen__divider" />

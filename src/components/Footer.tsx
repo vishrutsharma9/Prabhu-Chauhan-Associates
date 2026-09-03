@@ -15,7 +15,7 @@ export function Footer() {
             {/* White backing so the logo (drawn for a light background) stays
                 legible against the dark footer. */}
             <span className="site-footer__logo-plate">
-              <img src="/images/ca-india-logo.png" alt="CA India" className="site-footer__logo" />
+              <img src={`${import.meta.env.BASE_URL}images/ca-india-logo.png`} alt="CA India" className="site-footer__logo" />
             </span>
             <span className="site-footer__brand-text">
               <span className="site-footer__brand-name">{siteConfig.firmName}</span>

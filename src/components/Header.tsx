@@ -38,7 +38,7 @@ export function Header() {
           <NavLink to="/" className="site-header__brand" onClick={() => setMenuOpen(false)}>
             {/* TODO: replace with the firm's own logo once available — see
                 public/images/ca-india-logo.png */}
-            <img src="/images/ca-india-logo.png" alt="CA India" className="site-header__logo" />
+            <img src={`${import.meta.env.BASE_URL}images/ca-india-logo.png`} alt="CA India" className="site-header__logo" />
             <span className="site-header__brand-text">
               <span className="site-header__brand-name">{siteConfig.firmName}</span>
               <span className="site-header__brand-divider" aria-hidden="true" />
