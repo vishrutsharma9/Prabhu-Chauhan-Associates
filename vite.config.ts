@@ -4,10 +4,9 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // TEMPORARY fallback: prabhuca.in's DNS isn't live yet, so this is set
-  // back to the GitHub Pages subpath for now. Once prabhuca.in resolves and
-  // the custom domain is confirmed working, switch this back to '/' and
-  // restore public/CNAME (see git history around the "Connect custom
-  // domain prabhuca.in" commit for the exact custom-domain values).
-  base: '/Prabhu-Chauhan-Associates/',
+  // Serving from the custom domain https://prabhuca.in/ (root), via the
+  // public/CNAME file. If that domain is ever disconnected and the site
+  // falls back to https://vishrutsharma9.github.io/Prabhu-Chauhan-Associates/,
+  // change this back to '/Prabhu-Chauhan-Associates/'.
+  base: '/',
 })
